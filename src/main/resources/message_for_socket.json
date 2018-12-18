@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "message",
+  "type": "object",
+  "properties": {
+    "socketId": {
+      "type": "string",
+      "description": "The id of the message."
+    },
+    "payload": {
+      "type": "string",
+      "description": "The actual payload to be delivered."
+    },
+    "socketIdProperties": {
+      "type": "object",
+      "description": "Properties to associate with the socketId",
+      "patternProperties": {
+        ".*": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": [
+    "socketId",
+    "payload"
+  ]
+}

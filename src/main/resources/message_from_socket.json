@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "message",
+  "type": "object",
+  "properties": {
+    "messageType": {
+      "type": "string",
+      "description": "The type of message."
+    },
+    "socketId": {
+      "type": "string",
+      "description": "The id of the message."
+    }
+  },
+  "required": [
+    "messageType",
+    "socketId"
+  ]
+}
