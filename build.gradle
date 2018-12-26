@@ -10,11 +10,10 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    maven { url "https://jitpack.io" }
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    compile 'com.github.zoodeck:common:master-SNAPSHOT'
-    compile 'com.github.everit-org.json-schema:org.everit.json.schema:1.9.2'
+    compile 'com.github.zoodeck:common:c44eca18f1'
     compile 'org.java-websocket:Java-WebSocket:1.3.9'
 }

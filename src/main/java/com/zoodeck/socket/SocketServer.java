@@ -4,6 +4,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.zoodeck.common.ConstantsService;
+import com.zoodeck.common.config.ConfigService;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.loader.SchemaLoader;
 import org.json.JSONObject;
@@ -11,15 +12,17 @@ import org.json.JSONTokener;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
-import com.zoodeck.socket.config.ConfigService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
+import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static com.zoodeck.common.ConstantsService.*;
 
 public class SocketServer extends WebSocketServer {
     private static Logger logger = LoggerFactory.getLogger(SocketServer.class);
@@ -38,7 +41,7 @@ public class SocketServer extends WebSocketServer {
     private Channel channel;
 
     public SocketServer(ConfigService configService) throws Exception {
-        super(configService.getSocketAddress());
+        super(new InetSocketAddress(Integer.parseInt(configService.get("SOCKET_PORT"))));
         this.configService = configService;
         setupJsonSchemas();
         setupConnectionMaps();
@@ -123,9 +126,9 @@ public class SocketServer extends WebSocketServer {
 
     private void setupRabbit() throws Exception {
         connectionFactory = new ConnectionFactory();
-        connectionFactory.setHost(configService.getHost());
-        connectionFactory.setUsername(configService.getUsername());
-        connectionFactory.setPassword(configService.getPassword());
+        connectionFactory.setHost(configService.get(RABBIT_HOST));
+        connectionFactory.setUsername(configService.get(RABBIT_USER));
+        connectionFactory.setPassword(configService.get(RABBIT_PASS));
 
         connection = connectionFactory.newConnection();
         channel = connection.createChannel();
